@@ -7,7 +7,7 @@ import mysql from "mysql2/promise";
 const db = await mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "user",
   database: "escuela",
   namedPlaceholders: true,
 });
@@ -65,7 +65,7 @@ app.get("/profesor", async (req, res) => {
 //[GET] Obtener Alumno/Profesor Por ID
 app.get("/alumno/:id", async (req, res) => {
   const id = req.params.id;
-  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE id=:id", {
+  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE idalumno=:id", {
     id,
   });
   if (rows.length > 0) {
@@ -77,7 +77,7 @@ app.get("/alumno/:id", async (req, res) => {
 
 app.get("/profesor/:id", async (req, res) => {
   const id = req.params.id;
-  const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE id=:id", {
+  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE idprofesor=:id", {
     id,
   });
   if (rows.length > 0) {
@@ -92,7 +92,7 @@ app.put("/alumno/:id", async (req, res) => {
   const id = req.params.id;
   const alumno = req.body.alumno;
   await db.execute(
-    "UPDATE alumno SET nombre=:nombre, apellido=:apellido, dni=:dni, turno=:turno, fechaNacimiento=:fechaNacimiento, direccion=:direccion, nomCompletoTutor=:nomCompletoTutor, numeroTutor=:numeroTutor, direccionTutor=:direccionTutor WHERE id=:id",
+    "UPDATE alumno SET nombre=:nombre, apellido=:apellido, dni=:dni, turno=:turno, fechaNacimiento=:fechaNacimiento, direccion=:direccion, nomCompletoTutor=:nomCompletoTutor, numeroTutor=:numeroTutor, direccionTutor=:direccionTutor WHERE idalumno=:id",
     { id, nombre: alumno.nombre, apellido: alumno.apellido, dni: alumno.dni, turno: alumno.turno, fechaNacimiento: alumno.fechaNacimiento, direccion: alumno.direccion, nomCompletoTutor: alumno.nomCompletoTutor, numeroTutor: alumno.numeroTutor, direccionTutor: alumno.direccionTutor }
   );
   res.send("ok");
@@ -102,7 +102,7 @@ app.put("/profesor/:id", async (req, res) => {
   const id = req.params.id;
   const profesor = req.body.profesor;
   await db.execute(
-    "UPDATE profesor SET nombre=:nombre, apellido=:apellido, dni=:dni, direccion=:direccion WHERE id=:id",
+    "UPDATE profesor SET nombre=:nombre, apellido=:apellido, dni=:dni, direccion=:direccion WHERE idprofesor=:id",
     { id, nombre:profesor.nombre, apellido:profesor.apellido, dni:profesor.dni,direccion:profesor.direccion}
   );
   res.send("ok");
