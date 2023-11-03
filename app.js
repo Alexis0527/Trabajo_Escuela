@@ -44,7 +44,7 @@ app.post("/profesor", async (req, res) => {
       apellido: profesor.apellido,
       dni: profesor.dni,
       direccion: profesor.direccion,
-    
+
     }
   );
 
