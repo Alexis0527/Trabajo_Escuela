@@ -1,0 +1,10 @@
+post http://localhost:3000/profesor 
+
+ {
+    "profesor" :{
+    "nombre": "leandro",
+    "apellido": "santillan",
+    "dni": "43791882",
+    "direccion": "av.ortiz de ocampo 1320"
+    }
+  }
