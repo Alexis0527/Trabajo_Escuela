@@ -77,7 +77,7 @@ app.get("/alumno/:id", async (req, res) => {
 
 app.get("/profesor/:id", async (req, res) => {
   const id = req.params.id;
-  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE idprofesor=:id", {
+  const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE idprofesor=:id", {
     id,
   });
   if (rows.length > 0) {
