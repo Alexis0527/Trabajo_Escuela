@@ -1,19 +1,18 @@
-import express  from "express";
-import mysql from "mysql2/promise";
+import express from "express";
 import cors from "cors";
+import mysql from "mysql2/promise";
+import colors from "colors";
 
-
-
-
-//conectar base de datos
-const db= await mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'escuela',
-    namedPlaceholders: true,
+// Conectar a base de datos
+const db = await mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "escuela",
+  namedPlaceholders: true,
 });
-console.log('Conectado a base de datos');
+console.log("Conectado a base de datos...[i]".yellow);
+
 // Creo aplicacion express
 const app = express();
 
@@ -22,52 +21,20 @@ app.use(cors());
 
 // Registrar metodo GET en ruta raiz ('/')
 app.get("/", (req, res) => {
-  res.send("Hola mundo");
+  res.send("[HOME]");
 });
 
-// GET /alumno: Leer todos los alumnos
-app.get("/alumno", async (req, res) => {
-  const [rows, fields] = await db.execute("SELECT * FROM alumno");
-  res.send(rows);
-});
-
-// GET /alumnos/:id: Leer alumno por :id
-app.get("/alumno/:id", async (req, res) => {
-  const id = req.params.id;
-  const [rows, fields] = await db.execute(
-    "SELECT * FROM alumno WHERE idalumno=:id",
-    {
-      id,
-    }
-  );
-  if (rows.length > 0) {
-    res.send(rows[0]);
-  } else {
-    res.status(404).send({ mensaje: "Alumno no encontrado" });
-  }
-});
-
-// POST /alumno: Agregar nuevo alumno
+//[POST] Agregar Alumno/Profesor
 app.post("/alumno", async (req, res) => {
   const alumno = req.body.alumno;
   const [rows] = await db.execute(
     "INSERT INTO `escuela`.`alumno` (`nombre`, `apellido`, `dni`, `turno`, `fechaNacimiento`, `direccion`, `nomCompletoTutor`, `numeroTutor`, `direccionTutor`) VALUES (:nombre, :apellido, :dni, :turno, :fechaNacimiento, :direccion, :nomCompletoTutor, :numeroTutor, :direccionTutor);",
-    {
-      nombre: alumno.nombre,
-      apellido: alumno.apellido,
-      dni: alumno.dni,
-      turno: alumno.turno,
-      fechaNacimiento: alumno.fechaNacimiento,
-      direccion: alumno.direccion,
-      nomCompletoTutor: alumno.nomCompletoTutor,
-      numeroTutor: alumno.numeroTutor,
-      direccionTutor: alumno.direccionTutor,
-    }
+    { nombre: alumno.nombre, apellido: alumno.apellido, dni:alumno.dni, turno: alumno.turno, fechaNacimiento: alumno.fechaNacimiento, direccion: alumno.direccion, nomCompletoTutor: alumno.nomCompletoTutor, numeroTutor: alumno.numeroTutor, direccionTutor: alumno.direccionTutor  }
   );
-
+ 
   res.status(201).send({ ...alumno, id: rows.insertId });
 });
-// POST /profesor: Agregar nuevo profesor
+
 app.post("/profesor", async (req, res) => {
   const profesor = req.body.profesor;
   const [rows] = await db.execute(
@@ -84,19 +51,66 @@ app.post("/profesor", async (req, res) => {
   res.status(201).send({ ...profesor, id: rows.insertId });
 });
 
+// [GET] Obtener Todos los Alumnos/Profesor
+app.get("/alumno", async (req, res) => {
+  const [rows, fields] = await db.execute("SELECT * FROM alumno");
+  res.send(rows);
+});
 
-// PUT /tareas/:id: Modificar tarea con :id
-app.put("/tareas/:id", async (req, res) => {
+app.get("/profesor", async (req, res) => {
+  const [rows, fields] = await db.execute("SELECT * FROM profesor");
+  res.send(rows);
+});
+
+//[GET] Obtener Alumno/Profesor Por ID
+app.get("/alumno/:id", async (req, res) => {
   const id = req.params.id;
-  const tarea = req.body.tarea;
+  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE id=:id", {
+    id,
+  });
+  if (rows.length > 0) {
+    res.send(rows[0]);
+  } else {
+    res.status(404).send({ mensaje: "Alumno no encontrado" });
+  }
+});
+
+app.get("/profesor/:id", async (req, res) => {
+  const id = req.params.id;
+  const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE id=:id", {
+    id,
+  });
+  if (rows.length > 0) {
+    res.send(rows[0]);
+  } else {
+    res.status(404).send({ mensaje: "Profesor no encontrado" });
+  }
+});
+
+// [PUT] Modificar Informacion Por ID
+app.put("/alumno/:id", async (req, res) => {
+  const id = req.params.id;
+  const alumno = req.body.alumno;
   await db.execute(
-    "UPDATE tareas SET descripcion=:descripcion, lista=:lista WHERE id=:id",
-    { id, descripcion: tarea.descripcion, lista: tarea.lista }
+    "UPDATE alumno SET nombre=:nombre, apellido=:apellido, dni=:dni, turno=:turno, fechaNacimiento=:fechaNacimiento, direccion=:direccion, nomCompletoTutor=:nomCompletoTutor, numeroTutor=:numeroTutor, direccionTutor=:direccionTutor WHERE id=:id",
+    { id, nombre: alumno.nombre, apellido: alumno.apellido, dni: alumno.dni, turno: alumno.turno, fechaNacimiento: alumno.fechaNacimiento, direccion: alumno.direccion, nomCompletoTutor: alumno.nomCompletoTutor, numeroTutor: alumno.numeroTutor, direccionTutor: alumno.direccionTutor }
   );
   res.send("ok");
 });
 
+app.put("/profesor/:id", async (req, res) => {
+  const id = req.params.id;
+  const profesor = req.body.profesor;
+  await db.execute(
+    "UPDATE profesor SET nombre=:nombre, apellido=:apellido, dni=:dni, direccion=:direccion WHERE id=:id",
+    { id, nombre:profesor.nombre, apellido:profesor.apellido, dni:profesor.dni,direccion:profesor.direccion}
+  );
+  res.send("ok");
+});
+
+
 // Pongo en funcionamiento la API en puerto 3000
 app.listen(3000, () => {
-  console.log("API en funcionamiento");
+  console.log("Base De Datos Conectada [i]".green);
+  console.log("API en Funcionamiento [i]".green);
 });
