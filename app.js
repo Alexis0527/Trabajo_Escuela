@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import mysql from "mysql2/promise";
-import colors from "colors";
+
 
 // Conectar a base de datos
 const db = await mysql.createConnection({
@@ -11,7 +11,7 @@ const db = await mysql.createConnection({
   database: "escuela",
   namedPlaceholders: true,
 });
-console.log("Conectado a base de datos...[i]".yellow);
+console.log("Conectado a base de datos...[i]");
 
 // Creo aplicacion express
 const app = express();
@@ -111,6 +111,6 @@ app.put("/profesor/:id", async (req, res) => {
 
 // Pongo en funcionamiento la API en puerto 3000
 app.listen(3000, () => {
-  console.log("Base De Datos Conectada [i]".green);
-  console.log("API en Funcionamiento [i]".green);
+  console.log("Base De Datos Conectada [i]");
+  console.log("API en Funcionamiento [i]");
 });
