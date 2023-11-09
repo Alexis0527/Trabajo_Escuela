@@ -1,22 +1,34 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import TablaAlumnos from './components/tablaAlumno';
 
 import './App.css'
 
 function App() {
-  
+
+
+  const [alumnos, setAlumnos] = useState([]);
+  const [alumno,setAlumno] = useState()
+
+  const obtenerAlumnos = async () => {
+    const response = await fetch("http://localhost:4000/alumno");
+    const data = await response.json();
+    setAlumnos(data);
+  };
+  const handleAlumno = () => {
+    setAlumno(alumno)
+  }
+  useEffect(() => {
+    obtenerAlumnos();
+  }, []);
+
 
   //HTML
   return (
     <>
       <div>
-        <form action="">
-        <h1>Iniciar Usuario</h1>
-        <input type="text" placeholder='Nombre' />
-        <input placeholder='Contraseña' type='password'></input> 
-        <button>Entrar</button>
-        </form>
+        <TablaAlumnos alumnos={alumnos} alumno={handleAlumno}></TablaAlumnos>
+ 
       </div>
-
 
     </>
   )
