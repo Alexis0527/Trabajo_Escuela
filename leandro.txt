@@ -1,3 +1,9 @@
+[GET] alumno por DNI
+http://localhost:4000/alumno/dni/44430961
+
+[GEt] alumno Por Dni
+http://localhost:4000/alumno/nombre/leandro
+
 post http://localhost:3000/profesor 
 
  {

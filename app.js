@@ -62,11 +62,44 @@ app.get("/profesor", async (req, res) => {
   res.send(rows);
 });
 
-//[GET] Obtener Alumno/Profesor Por ID
-app.get("/alumno/:id", async (req, res) => {
-  const id = req.params.id;
-  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE idalumno=:id", {
-    id,
+//[GET] Obtener Profesor
+
+
+//[GET] Por Nombre
+app.get("/profesor/nombre/:nombre", async (req, res) => {
+  const nombre = req.params.nombre;
+  const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE nombre=:nombre", {
+    nombre,
+  });
+  if (rows.length > 0) {
+    res.send(rows[0]);
+  } else {
+    res.status(404).send({ mensaje: "Profesor no encontrado" });
+  }
+});
+
+//[GET] Por DNI
+app.get("/profesor/dni/:numeroDocumento", async (req, res) => {
+  const nombre = req.params.nombre;
+  const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE dni=:numeroDocumento", {
+    nombre,
+  });
+  if (rows.length > 0) {
+    res.send(rows[0]);
+  } else {
+    res.status(404).send({ mensaje: "Profesor no encontrado" });
+  }
+});
+//-----------------------------------------------------------------------------------------------------------------------
+
+//[GET] Obtener Alumno
+
+//[GET] Por Nombre
+
+app.get("/alumno/nombre/:nombre", async (req, res) => {
+  const nombre = req.params.nombre;
+  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE nombre=:nombre", {
+    nombre,
   });
   if (rows.length > 0) {
     res.send(rows[0]);
@@ -75,15 +108,16 @@ app.get("/alumno/:id", async (req, res) => {
   }
 });
 
-app.get("/profesor/:id", async (req, res) => {
-  const id = req.params.id;
-  const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE idprofesor=:id", {
-    id,
+//[GET] Por DNI
+app.get("/alumno/dni/:numeroDocumento", async (req, res) => {
+  const numeroDocumento = req.params.numeroDocumento;
+  const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE dni=:numeroDocumento", {
+    numeroDocumento,
   });
   if (rows.length > 0) {
     res.send(rows[0]);
   } else {
-    res.status(404).send({ mensaje: "Profesor no encontrado" });
+    res.status(404).send({ mensaje: "Alumno no encontrado" });
   }
 });
 
