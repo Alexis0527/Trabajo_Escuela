@@ -80,9 +80,9 @@ app.get("/profesor/nombre/:nombre", async (req, res) => {
 
 //[GET] Por DNI
 app.get("/profesor/dni/:numeroDocumento", async (req, res) => {
-  const nombre = req.params.nombre;
+  const numeroDocumento = req.params.numeroDocumento;
   const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE dni=:numeroDocumento", {
-    nombre,
+    numeroDocumento,
   });
   if (rows.length > 0) {
     res.send(rows[0]);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import TablaAlumnos from './components/tablaAlumno';
 
+
 import './App.css'
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   const [alumno,setAlumno] = useState()
 
   const obtenerAlumnos = async () => {
-    const response = await fetch("http://localhost:4000/alumno/");
+    const response = await fetch("http://localhost:4000/alumno");
     const data = await response.json();
     setAlumnos(data);
   };
@@ -21,6 +22,15 @@ function App() {
     obtenerAlumnos();
   }, []);
 
+
+  //------------------------------------------------------
+  
+  const [mostrarComponente, setMostrarComponente] = useState(false);
+  const handleClick = () => {
+    setMostrarComponente(!mostrarComponente); // Cambia el estado al opuesto del estado actual
+  };
+
+  
 
   //HTML
   return (
@@ -33,7 +43,9 @@ function App() {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a className="nav-link" href="/productos">Buscar Alumno</a>
+          <div>
+          <button onClick={handleClick}>Buscar Alumno</button>
+          </div>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/servicios">Buscar Profesor </a>
@@ -46,8 +58,9 @@ function App() {
     </div>
   </nav>
       <div>
-        <TablaAlumnos alumnos={alumnos} alumno={handleAlumno}></TablaAlumnos>
+      {mostrarComponente && <TablaAlumnos alumnos={alumnos} alumno={handleAlumno}></TablaAlumnos>}
       </div>
+      
     </>
   )
 }
