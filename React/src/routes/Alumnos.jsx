@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-import TablaAlumnos from './components/tablaAlumno';
+import TablaAlumnos from '../components/tablaAlumno';
 
-import './App.css'
-
-function App() {
-
+export const Alumnos = () => {
 
   const [alumnos, setAlumnos] = useState([]);
   const [alumno,setAlumno] = useState()
@@ -14,24 +11,18 @@ function App() {
     const data = await response.json();
     setAlumnos(data);
   };
-  const handleAlumno = () => {
+  const handleAlumno = (alumno) => {
     setAlumno(alumno)
   }
   useEffect(() => {
     obtenerAlumnos();
   }, []);
-
-
-  //HTML
   return (
     <>
-      <div>
         <TablaAlumnos alumnos={alumnos} alumno={handleAlumno}></TablaAlumnos>
- 
-      </div>
+        {alumno && 
+        <h2>{alumno.dni}: {alumno.apellido} {alumno.nombre}</h2>}
 
     </>
   )
-}
-
-export default App
+};

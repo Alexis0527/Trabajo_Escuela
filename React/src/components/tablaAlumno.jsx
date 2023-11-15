@@ -15,7 +15,8 @@ const TablaAlumnos = ({ alumnos, alumno }) => {
           </thead>
           <tbody>
             {alumnos.map((al) => (
-              <tr key={al.id} onDoubleClick={() => alumno(al)}>
+              <tr key={al.id} onDoubleClick={() => {alumno(al)}
+              }>
                 <td>{al.dni}</td>
                 <td>{al.nombre}</td>
                 <td>{al.apellido}</td>
