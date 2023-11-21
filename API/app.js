@@ -4,7 +4,7 @@ import { alumnoRouter } from "./routers/alumno.js";
 import { profesorRouter } from "./routers/profesor.js";
 import { cursoRouter } from "./routers/curso.js";
 
-
+//e
 // Creo aplicacion express
 const app = express();
 
