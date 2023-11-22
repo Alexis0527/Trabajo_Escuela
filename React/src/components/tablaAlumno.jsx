@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 const TablaAlumnos = ({ alumnos, alumno }) => {
     return (
       <div className="container">
@@ -8,9 +9,10 @@ const TablaAlumnos = ({ alumnos, alumno }) => {
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Dirección</th>
-              <th>Turno</th>
               <th>Fecha de Nacimiento</th>
               <th>Nombre Tutor</th>
+              <th>Numero Tutor</th>
+              <th>Dirección Tutor</th>
             </tr>
           </thead>
           <tbody>
@@ -21,9 +23,10 @@ const TablaAlumnos = ({ alumnos, alumno }) => {
                 <td>{al.nombre}</td>
                 <td>{al.apellido}</td>
                 <td>{al.direccion}</td>
-                <td>{al.turno}</td>
                 <td>{al.fechaNacimiento}</td>
                 <td>{al.nomCompletoTutor}</td>
+                <td>{al.numeroTutor}</td>
+                <td>{al.direccionTutor}</td>
               </tr>
             ))}
           </tbody>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import TablaAlumnos from '../components/tablaAlumno';
+import { Link } from 'react-router-dom';
+import TablaAlumnos from '../../components/tablaAlumno';
 
 export const Alumnos = () => {
 
@@ -16,6 +17,7 @@ export const Alumnos = () => {
   };
   const handleAlumno = (alumno) => {
     setAlumno(alumno)
+    console.log(alumno)
   }
   const handleBusqueda = () => {
     setFiltrados(alumnos.filter((alumno)=> alumno.dni.includes(filtro)))
@@ -25,8 +27,9 @@ export const Alumnos = () => {
   }, []);
   return (
     <>
-    <div className="input-group mb-3">
-      <input
+        
+      <div className="input-group mb-3">
+        <input
           name="filtro"
           className="form-control" 
           placeholder="Ingrese dni"
@@ -37,14 +40,21 @@ export const Alumnos = () => {
           }}
         />
 
-    </div>
+      </div>
+    
 
       <TablaAlumnos alumnos={filtrados} alumno={handleAlumno}></TablaAlumnos>
-      <button className="btn btn-dark">Agregar alumno</button>
+      <Link to={'/alumnos/agregar'}>
+        <button className="btn btn-dark">Agregar alumno</button>
+      </Link>
+      
       {alumno &&<div className="text-center">      
         <h2>{alumno.dni}: {alumno.apellido} {alumno.nombre}</h2>
         <div >
-          <button className="btn btn-light">Editar alumno</button>
+          <Link to={`/alumnos/editar/${alumno.idalumno}`}>
+            <button className="btn btn-light">Editar alumno</button>
+          </Link>
+
           <button className="btn btn-light">Consultar libreta</button>
         </div>
       </div>}
