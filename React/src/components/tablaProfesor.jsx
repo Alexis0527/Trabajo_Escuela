@@ -1,10 +1,6 @@
-const TablaAlumnos = ({ alumnos, alumno }) => {
+const TablaProfesores = ({ profesores, profesor }) => {
     return (
       <div className="container">
-        <h1>Buscar Alumno </h1>
-        <input type='text' placeholder={`Ingrese el DNI`} />
-        <button>Buscar</button>
-        <table class="table table-striped" style={{marginTop: 20}}></table>
         <table className="table table-hover">
           <thead className="table-success">
             <tr>
@@ -12,19 +8,16 @@ const TablaAlumnos = ({ alumnos, alumno }) => {
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Dirección</th>
-              <th>Fecha de Nacimiento</th>
-              <th>Nombre Tutor</th>
             </tr>
           </thead>
           <tbody>
-            {alumnos.map((al) => (
-              <tr key={al.id} onDoubleClick={() => alumno(al)}>
+            {profesores.map((al) => (
+              <tr key={al.id} onDoubleClick={() => {profesor(al)}
+              }>
                 <td>{al.dni}</td>
                 <td>{al.nombre}</td>
                 <td>{al.apellido}</td>
                 <td>{al.direccion}</td>
-                <td>{al.fechaNacimiento}</td>
-                <td>{al.nomCompletoTutor}</td>
               </tr>
             ))}
           </tbody>
@@ -33,5 +26,4 @@ const TablaAlumnos = ({ alumnos, alumno }) => {
     );
   };
   
-  export default TablaAlumnos;
-  
+  export default TablaProfesores;
