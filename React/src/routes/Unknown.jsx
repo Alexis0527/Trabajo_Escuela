@@ -5,8 +5,7 @@ export const Unknown = () => {
             <h1>No se encontró ninguna página</h1>
             <Link to='/'>
                 <button className="btn btn-secondary btn-lg">Regresar a inicio</button>
-            </Link>
-            
+            </Link> 
         </>
         
     )

@@ -18,6 +18,17 @@ export const profesorRouter = express
           res.status(404).send({ mensaje: "Profesor no encontrado" });
         }
     })
+    .get("/buscar/:dato", async(req,res) => {
+      const dato = req.params.dato;
+      const [rows, fields] = await db.execute("SELECT * FROM profesor WHERE dni=:dato OR nombre=:dato OR apellido=:dato ", {
+        dato,
+      });
+      if (rows.length > 0) {
+        res.send(rows);
+      } else {
+        res.status(404).send({ mensaje: "Profesores no encontrados" });
+      }
+    })
     .post("/", async (req, res) => {
         const profesor = req.body.profesor;
         const [rows] = await db.execute(
@@ -42,4 +53,9 @@ export const profesorRouter = express
           { id, nombre:profesor.nombre, apellido:profesor.apellido, dni:profesor.dni,direccion:profesor.direccion}
         );
         res.send("ok");
-    });
+    })
+    .delete("/:id", async (req, res) => {
+      const id = req.params.id;
+      await db.execute("DELETE FROM profesor WHERE idprofesor=:id", { id });
+      res.send("ok");
+  });  

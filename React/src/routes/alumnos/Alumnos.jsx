@@ -5,7 +5,6 @@ import TablaAlumnos from '../../components/tablaAlumno';
 export const Alumnos = () => {
 
   const [alumnos, setAlumnos] = useState([]);
-  const [filtrados, setFiltrados] = useState([])
   const [alumno,setAlumno] = useState()
   const [filtro, setFiltro] = useState("")
 
@@ -13,14 +12,22 @@ export const Alumnos = () => {
     const response = await fetch("http://localhost:4000/alumno");
     const data = await response.json();
     setAlumnos(data);
-    setFiltrados(data)
   };
+  
+  const buscarAlumnos = async () => {
+    const res = await fetch(`http://localhost:4000/alumno/buscar/${filtro}`);
+    if(!res.ok) {
+      alert("Alumnos no encontrados")
+      setFiltro("")
+      throw new Error("Alumnos no Encontrado");
+    } else{
+      const data = await res.json();
+      setAlumnos(data)
+    }
+  }
   const handleAlumno = (alumno) => {
     setAlumno(alumno)
     console.log(alumno)
-  }
-  const handleBusqueda = () => {
-    setFiltrados(alumnos.filter((alumno)=> alumno.dni.includes(filtro)))
   }
   useEffect(() => {
     obtenerAlumnos();
@@ -32,18 +39,23 @@ export const Alumnos = () => {
         <input
           name="filtro"
           className="form-control" 
-          placeholder="Ingrese dni"
+          placeholder="Ingrese dni, nombre o apellido"
           value={filtro}
-          onChange={(e) => {
-            setFiltro(e.target.value)
-            handleBusqueda()
+          onChange={(e) => {setFiltro(e.target.value)
           }}
         />
+        <button onClick={() =>{
+          if (filtro.trim() !=""){
+            buscarAlumnos();
+          } else {
+          obtenerAlumnos()
+        }
+      }}>Buscar</button>
 
       </div>
     
 
-      <TablaAlumnos alumnos={filtrados} alumno={handleAlumno}></TablaAlumnos>
+      <TablaAlumnos alumnos={alumnos} alumno={handleAlumno}></TablaAlumnos>
       <Link to={'/alumnos/agregar'}>
         <button className="btn btn-dark">Agregar alumno</button>
       </Link>
@@ -54,8 +66,9 @@ export const Alumnos = () => {
           <Link to={`/alumnos/editar/${alumno.idalumno}`}>
             <button className="btn btn-light">Editar alumno</button>
           </Link>
-
-          <button className="btn btn-light">Consultar libreta</button>
+          <Link to={`/alumnos/libreta/${alumno.idalumno}`}>
+            <button className="btn btn-light">Consultar libretas</button>
+          </Link>
         </div>
       </div>}
 

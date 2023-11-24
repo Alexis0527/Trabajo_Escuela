@@ -23,7 +23,8 @@ export const NuevoAlumno = () => {
         if (res.ok) {
           alert("Alumno creado");
         } else{
-          console.log("Fallo al crear persona nueva");
+          alert("Fallo al crear alumno nuevo")
+          console.log("Fallo al crear alumno nuevo");
         }
       }
     return (
@@ -96,10 +97,15 @@ export const NuevoAlumno = () => {
                     onChange={(e)=>{setNuevoAlumno({...nuevoAlumno, direccionTutor:e.target.value})}}
                     />
                 </div>
-                <button type="submit">Agregar</button>
+                <button disabled={!nuevoAlumno.nombre ||
+                    !nuevoAlumno.apellido  ||
+                    !nuevoAlumno.dni  ||
+                    !nuevoAlumno.direccion  ||
+                    !nuevoAlumno.fechaNacimiento  ||
+                    !nuevoAlumno.nomCompletoTutor ||
+                    !nuevoAlumno.numeroTutor ||
+                    !nuevoAlumno.direccionTutor} type="submit">Agregar</button>
             </form>
-        
-            
             <Link to='/alumnos'>
                 <button className="btn btn-secondary btn-lg">regresar</button>
             </Link>

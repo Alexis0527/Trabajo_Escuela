@@ -21,38 +21,35 @@ export const alumnoRouter = express
           res.status(404).send({ mensaje: "Alumno no encontrado" });
         }
       })
-
+    .get("/buscar/:dato", async(req,res) => {
+      const dato = req.params.dato;
+      const [rows, fields] = await db.execute("SELECT * FROM alumno WHERE dni=:dato OR nombre=:dato OR apellido=:dato ", {
+        dato,
+      });
+      if (rows.length > 0) {
+        res.send(rows);
+      } else {
+        res.status(404).send({ mensaje: "Alumnos no encontrados" });
+      }
+    })
     .get("/:id/libreta", async (req,res) => {
     const id = req.params.id;
       const [rows, fields] = await db.execute(
-        "SELECT * FROM libreta  \
+        "SELECT concat(alumno.nombre,' ',alumno.apellido) as nombre, curso.nombreDescriptivo as curso, CONCAT(ROUND( libreta.diasAsistidos / (libreta.diasAsistidos + libreta.diasFaltados) * 100, 2 ),'%') as asistencia,\
+        libreta.idlibreta FROM libreta  \
+        INNER JOIN ALUMNO \
+        ON libreta.alumnoid = alumno.idalumno \
+        INNER JOIN CURSO \
+        ON libreta.cursoid = curso.idcurso \
         where alumnoid = :id", {
         id
       });
       if (rows.length > 0) {
-        res.send(rows[0]);
+        res.send(rows);
       } else {
         res.status(404).send({ mensaje: "Libreta no encontrada" });
       }
     })
-
-    .get("/:id/libreta/notas", async (req,res) => {
-      const id = req.params.id;
-        const [rows, fields] = await db.execute(
-          "SELECT libas.nota, concat(alumno.nombre,' ',alumno.apellido) as nombre FROM `libreta-asignatura` as libas \
-          INNER JOIN libreta \
-          ON  libreta.idlibreta = libas.libretaid\
-          inner join alumno \
-          on alumno.idalumno = libreta.alumnoid \
-          where libreta.alumnoid = :id", {
-          id
-        });
-        if (rows.length > 0) {
-          res.send(rows[0]);
-        } else {
-          res.status(404).send({ mensaje: "Notas no encontrada" });
-        }
-      })
 
     //[POST] Agregar Alumno
     .post("/", async (req, res) => {
