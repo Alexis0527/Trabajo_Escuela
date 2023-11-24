@@ -2,10 +2,6 @@
 const TablaAlumnos = ({ alumnos, alumno }) => {
     return (
       <div className="container">
-        <h1>Buscar Alumno </h1>
-        <input type='text' placeholder={`Ingrese el DNI`} />
-        <button>Buscar</button>
-        <table class="table table-striped" style={{marginTop: 20}}></table>
         <table className="table table-hover">
           <thead className="table-success">
             <tr>

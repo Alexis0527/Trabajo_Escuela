@@ -60,7 +60,7 @@ export const EditProfesor = () => {
                         onChange={(e)=>{setNuevoProfesor({...nuevoProfesor, dni:e.target.value})}}
                         />
                 </div>
-                <div className="form-group">
+                <div className="form-group ">
                     <label htmlFor="direccion">Dirección</label>
                     <input type="text"
                         className="form-control"
@@ -68,12 +68,9 @@ export const EditProfesor = () => {
                         onChange={(e)=>{setNuevoProfesor({...nuevoProfesor, direccion:e.target.value})}}
                         />
                 </div>
-                    <button type="submit">Editar</button>
+                   <button type="submit" className="form-control btn">Editar</button>
                 </form>
             
-            <Link to={'/profesores'}>
-                <button>regresar</button>
-            </Link>
         </>
     )
 }

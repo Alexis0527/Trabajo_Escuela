@@ -4,8 +4,8 @@ const TablaNotas = ({ notas }) => {
         <table className="table table-hover">
           <thead className="table-success">
             <tr>
-              <th>Nota</th>
               <th>Asigntaura</th>
+              <th>Nota</th>
             </tr>
           </thead>
           <tbody>

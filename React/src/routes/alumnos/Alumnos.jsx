@@ -34,8 +34,12 @@ export const Alumnos = () => {
   }, []);
   return (
     <>
+      <div className="d-flex align-items-center justify-content-center ">
+      <label className="display-6  label-buscar ">Buscar Alumno</label>
+      </div>
         
-      <div className="input-group mb-3">
+      <div className="mb-3 container ">
+        
         <input
           name="filtro"
           className="form-control" 
@@ -44,7 +48,7 @@ export const Alumnos = () => {
           onChange={(e) => {setFiltro(e.target.value)
           }}
         />
-        <button onClick={() =>{
+        <button className='btn' onClick={() =>{
           if (filtro.trim() !=""){
             buscarAlumnos();
           } else {
@@ -52,20 +56,24 @@ export const Alumnos = () => {
         }
       }}>Buscar</button>
 
+      <Link to={'/alumnos/agregar'}>
+        <button className="btn btn-dark " >Agregar alumno</button>
+      </Link>
+
       </div>
+      
     
 
       <TablaAlumnos alumnos={alumnos} alumno={handleAlumno}></TablaAlumnos>
-      <Link to={'/alumnos/agregar'}>
-        <button className="btn btn-dark">Agregar alumno</button>
-      </Link>
       
-      {alumno &&<div className="text-center">      
+      
+      {alumno &&<div className="display-6  label-buscar">      
         <h2>{alumno.dni}: {alumno.apellido} {alumno.nombre}</h2>
         <div >
           <Link to={`/alumnos/editar/${alumno.idalumno}`}>
             <button className="btn btn-light">Editar alumno</button>
           </Link>
+
           <Link to={`/alumnos/libreta/${alumno.idalumno}`}>
             <button className="btn btn-light">Consultar libretas</button>
           </Link>

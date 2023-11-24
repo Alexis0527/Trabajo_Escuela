@@ -28,8 +28,11 @@ export const NuevoAlumno = () => {
         }
       }
     return (
-        <>
-           <h1>Ingrese los datos</h1>
+        <>      
+      <div className="d-flex align-items-center justify-content-center ">
+      <label className="display-6  label-buscar ">Agregar Alumno</label>
+      
+      </div>
             <form onSubmit={subirAlumno}>
                 <div className="row">
                     <div className="col">
@@ -97,18 +100,17 @@ export const NuevoAlumno = () => {
                     onChange={(e)=>{setNuevoAlumno({...nuevoAlumno, direccionTutor:e.target.value})}}
                     />
                 </div>
-                <button disabled={!nuevoAlumno.nombre ||
+                <div className="form-group" ><button disabled={!nuevoAlumno.nombre ||
                     !nuevoAlumno.apellido  ||
                     !nuevoAlumno.dni  ||
                     !nuevoAlumno.direccion  ||
                     !nuevoAlumno.fechaNacimiento  ||
                     !nuevoAlumno.nomCompletoTutor ||
                     !nuevoAlumno.numeroTutor ||
-                    !nuevoAlumno.direccionTutor} type="submit">Agregar</button>
+                    !nuevoAlumno.direccionTutor} type="submit" className="form-control btn" >Agregar</button>
+                </div>    
             </form>
-            <Link to='/alumnos'>
-                <button className="btn btn-secondary btn-lg">regresar</button>
-            </Link>
+            
         </>
     )
 }

@@ -59,8 +59,12 @@ export const LibretaAlumno = () => {
   }, []);
   return (
     <>
-      <h1>Libretas</h1>
+      <div className="d-flex align-items-center justify-content-center ">
+      <label className="display-6  label-buscar" >Libreta</label>
+      </div>
+
       {libretas && <TablaLibretas libretas={libretas} libreta={handleLibreta}/>}
+
       {libreta &&<div className="text-center">      
         <h2>{libreta.curso}</h2>
         <div >
@@ -69,25 +73,42 @@ export const LibretaAlumno = () => {
         </Link>
         </div>
       </div>}
-      
-      {mostrar && <div className='container'>
-        <h3>Crear nueva libreta</h3>
-        <Select
-          options={ cursos.map(cur=> ({label:cur.nombreDescriptivo, value:cur.idcurso}))}
-          onChange={handleSelect}/>
-        <button className="btn btn-light" onClick={()=>{
-          crearLibreta()
-          }}>Crear libreta</button>
-        </div>}
-      {libretas && <button className='text-center' onClick={()=>{
+      <div className='container'>
+      {libretas && <button className='btn' onClick={()=>{
         if (!mostrar) {
           setMostrar(true)
         } else{ setMostrar(false)}
-      }}> Mostrar/ocultar pestaña de creacion</button>}
-
-      <Link to={'/alumnos'}>
+      }}> Crear Nueva Libreta</button>}
+</div>
+  
+      {mostrar && <form>
+        <div className="d-flex align-items-center justify-content-center ">
+      <label className="display-6  label-buscar" >Crear</label>
+      </div>
+      
+      
+        <div className="form-group">
+        <Select
+          options={ cursos.map(cur=> ({label:cur.nombreDescriptivo, value:cur.idcurso}))}
+          onChange={handleSelect}/>
+        </div>
+        <br />
+        <div className="form-group"> 
+        <button className="btn btn-light" onClick={()=>{
+          crearLibreta()
+          }}>Crear libreta</button>
+        </div> 
+        <br /> 
+        <div className="form-group">
+        <Link to={'/alumnos'}>
         <button className="btn btn-light">regresar</button>
-      </Link>
+        </Link>
+        </div> 
+
+        </form>}
+      
+      
+    
     </>
   )
 };

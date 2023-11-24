@@ -39,7 +39,9 @@ export const EditAlumno = () => {
     }, []);
     return (
         <>
-            <h1>Ingrese los datos</h1>
+            <div className="d-flex align-items-center justify-content-center ">
+            <label className="display-6  label-buscar ">Editar Alumno</label>
+            </div>
             <form onSubmit={editAlumno}>
                 <div className="row">
                     <div className="col">
@@ -106,12 +108,10 @@ export const EditAlumno = () => {
                         onChange={(e)=>{setNuevoAlumno({...nuevoAlumno, direccionTutor:e.target.value})}}
                         />
                 </div>
-                    <button type="submit">Editar</button>
+                    <button type="submit" className="form-control btn">Editar</button>
                 </form>
             
-            <Link to={'/alumnos'}>
-                <button>regresar</button>
-            </Link>
+    
         </>
     )
 }

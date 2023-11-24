@@ -1,23 +1,116 @@
 
 body{
-  background-color: cornsilk;
+  background-color: #7f7fbf;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-<<<<<<< HEAD:trabajo-escuela/src/index.css
-=======
-h1{
-  text-align: center;
+#tituloInicio{
+  color: white;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
+}
+
+.navbar-nav{
+align-items: end;
+}
+
+.navbar {
+  background-color: #f8f9fa; /* Color de fondo */
+  padding: 15px 0; /* Espaciado interno superior e inferior */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+  color: #7f7fbf; /* Color del texto */
+  text-decoration: none; 
+}
+
+.nav-link {
+  text-decoration: none; 
+  font-weight: bold;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+  margin-right: 20px;
+}
+
+.nav-link:hover {
+  color: #7f7fbf /* Cambia el color al hacer hover */
+  
+}
+.label-buscar{
+  margin: 25px;
+  color: white;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
 }
 
 form{
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 280px;
   height: 40px;
   margin: auto;
 }
+
 input{
   padding-bottom: 10px;
   margin: 10px;
 }
->>>>>>> Rutas:React/src/index.css
+
+
+/* Estilos para el contenedor principal de la aplicación */
+#root {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Estilos para el encabezado o barra de navegación */
+
+/* Estilos para la sección principal */
+main {
+  width: 80%;
+  margin: 20px 0;
+}
+
+/* Estilos para los botones de navegación */
+
+
+/* Estilos para las rutas específicas (por ejemplo, Home, Alumnos, Profesores) */
+.route-content {
+  margin-top: 20px;
+}
+
+/* Estilos para los formularios o controles de entrada de datos, si es necesario */
+.form-control {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Estilos para los botones, si es necesario */
+.btn {
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #3f3f9f;
+  color: #fff;
+  border: none;
+  box-shadow: 2px 5px 9px rgba(0, 0, 0, 0.7) ;
+  cursor: pointer;
+}
+
+.btn:hover {
+  padding: 10px;
+  background-color: #1f1f8f;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+/* Estilos adicionales según tus necesidades */

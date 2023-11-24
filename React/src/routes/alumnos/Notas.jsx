@@ -45,8 +45,8 @@ export const Notas = () => {
       setNuevaNota(0)
       buscarNotas(asignatura)
     } else{
-      alert("Fallo al crear alumno nuevo")
-      console.log("Fallo al crear alumno nuevo");
+      alert("Fallo al crear nota nueva")
+      console.log("Fallo al crear nota nueva");
       setNuevaNota(0)
     }
   }
@@ -62,30 +62,33 @@ export const Notas = () => {
   }, []);
   return (
     <>
-        <div className='container'>
-            <h1>Seleccionar asignatura</h1>
-            <Select
+            <div className="d-flex align-items-center justify-content-center ">
+              <label className="display-6  label-buscar ">Agregar nota</label>
+            </div >
+         <form > 
+          <div className="form-group ">
+            <Select  className="form-group mb-3 "
                 options={asignaturas.map((asig)=>({label:asig.nombreDescritivo, value:asig.idasignatura}))}
                 onChange={handleSelect}/>
-                <button onClick={()=>{
+                <button className="form-group mb-3 btn" onClick={()=>{
                     obtenerNotas()
                     setAsignatura(0)
-
                 }}>Ver todas las notas</button>
+
             {notas && <TablaNotas notas={notas}/>}
-        </div>
+        </div >
       
-      {asignatura>0 && <div>
-        <input type="number" value={nuevaNota} min="0" max="10" onChange={(e)=> {
+      {asignatura>0 && <div className="">
+        <input className="btn" type="number" value={nuevaNota} min="0" max="10" onChange={(e)=> {
                 setNuevaNota(e.target.value)
             }}/>
-            <button onClick={subirNota}>agregar nota</button>
+            <button className="btn" onClick={subirNota}>agregar nota</button>
         </div>}
     
       <Link to={`/alumnos/libreta/${id}`}>
         <button className="btn btn-dark">Regresar</button>
       </Link>
-      
+    </form>  
     </>
   )
 };

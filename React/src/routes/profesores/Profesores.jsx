@@ -47,8 +47,12 @@ export const Profesores = () => {
   }, []);
   return (
     <>
+    <div className="d-flex align-items-center justify-content-center ">
+      <label className="display-6  label-buscar" >Buscar Profesores</label>
+      </div>
         
-      <div className="input-group mb-3">
+      <div className="mb-3 container ">
+
         <input
           name="filtro"
           className="form-control" 
@@ -57,22 +61,22 @@ export const Profesores = () => {
           onChange={(e) => {setFiltro(e.target.value)
           }}
         />
-        <button onClick={() =>{
+        <button className='btn' onClick={() =>{
           if (filtro.trim() !=""){
             buscarProfesores();
           } else {
           obtenerProfesores()
         }
       }}>Buscar</button>
+      <Link to={'/profesores/agregar'}>
+        <button className="btn btn-dark">Agregar Profesor</button>
+      </Link>
 
       </div>
       <TablaProfesores profesores={profesores} profesor={handleProfesor}></TablaProfesores>
     
-      <Link to={'/profesores/agregar'}>
-        <button className="btn btn-dark">Agregar Profesor</button>
-      </Link>
       
-      {profesor &&< div className="text-center">      
+      {profesor &&< div className="display-6  label-buscar">      
         <h2>{profesor.dni}: {profesor.apellido} {profesor.nombre}</h2>
         <div >
           <Link to={`/profesores/editar/${profesor.idprofesor}`}>
@@ -83,6 +87,7 @@ export const Profesores = () => {
           }>Eliminar profesor</button>
         </div>
       </div>}
+
 
     </>
   )
